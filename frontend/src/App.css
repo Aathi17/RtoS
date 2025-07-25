@@ -1,0 +1,477 @@
+:root {
+  --bg-main: #f0f2f5;
+  --bg-sidebar: #ffffff;
+  --bg-chatbox: #e9ebee;
+  --bg-input: #ffffff;
+  --input-inner: #ddd;
+  --bg-sent: #d1ffd6;
+  --bg-received: #f0f0f0;
+  --text-color: #111;
+  --avatar-bg: #00a884;
+  --border-color: #ccc;
+  --header-bg: #e4e6eb;
+}
+
+body.dark-theme {
+  --bg-main: #111b21;
+  --bg-sidebar: #202c33;
+  --bg-chatbox: transparent;
+  --bg-input: #1e2a30;
+  --input-inner: #2a3942;
+  --bg-sent: #005c4b;
+  --bg-received: #202c33;
+  --text-color: #ffffff;
+  --avatar-bg: #00a884;
+  --border-color: #2b3a42;
+  --header-bg: #202c33;
+}
+
+body.light-theme,
+body.dark-theme {
+  background: var(--bg-main);
+  color: var(--text-color);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* === Join Room === */
+/* === Join Room - Enhanced === */
+.join-room {
+  position: relative;
+  z-index: 1; /* ensure it's above the lottie background */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: slideInUp 0.6s ease;
+  color: var(--text-color);
+}
+
+.join-room h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--avatar-bg);
+}
+
+.join-room input {
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background-color: var(--input-inner);
+  color: var(--text-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.join-room input:focus {
+  outline: none;
+  box-shadow: 0 0 8px var(--avatar-bg);
+}
+
+.join-room button {
+  padding: 14px;
+  background-color: var(--avatar-bg);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.join-room button:hover {
+  background-color: #029070;
+}
+
+.join-room button:active {
+  transform: scale(0.97);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+}
+
+
+/* === Chat Layout with animated background === */
+.chat-layout {
+  height: 100vh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+
+  /* ✨ Gradient Background (mild animation) */
+  background: linear-gradient(120deg, 
+    rgba(255, 255, 255, 0.1), 
+    rgba(0, 0, 0, 0.05), 
+    rgba(255, 255, 255, 0.1));
+  background-size: 300% 300%;
+  animation: gradientWave 20s ease infinite;
+}
+
+
+
+/* === Chat Sidebar === */
+.chat-sidebar {
+  width: 280px;
+  background-color: var(--bg-sidebar);
+  padding: 20px;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+}
+
+.chat-sidebar h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.chat-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 15px;
+  color: var(--text-color);
+  position: relative;
+  animation: slideIn 0.4s ease;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  background-color: var(--avatar-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.user-avatar:hover::after {
+  content: attr(data-username);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0.9;
+}
+
+.user-status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #0f0;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+/* === Chat Box === */
+.chat-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  background-color: var(--header-bg);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chat-header button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.chat-header button:hover {
+  background-color: #e60000;
+}
+
+.chat-header button:active {
+  transform: scale(0.95);
+}
+
+.chat-box {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.85); /* default for light theme */
+  scroll-behavior: smooth;
+  transition: background-color 0.4s ease;
+}
+
+/* 🎯 Dark theme support */
+body.dark-theme .chat-box {
+  background-color: rgba(32, 44, 51, 0.85);
+}
+
+
+.chat-box .message-bubble {
+  animation: fadeIn 0.4s ease;
+}
+
+.system-message {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  font-size: 14px;
+  animation: fadeIn 0.4s ease;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 12px;
+  border-radius: 10px;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  color: var(--text-color);
+}
+
+.message-bubble.sent {
+  background-color: var(--bg-sent);
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+.message-bubble.received {
+  background-color: var(--bg-received);
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+.message-bubble small {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
+}
+
+.typing-indicator {
+  padding-left: 20px;
+  font-size: 14px;
+  color: #9aa6ab;
+  margin-top: -8px;
+  margin-bottom: 5px;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+.chat-input {
+  background-color: var(--bg-input);
+  display: flex;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  background: var(--input-inner);
+  color: var(--text-color);
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.chat-input input:focus {
+  box-shadow: 0 0 5px var(--avatar-bg);
+}
+
+.chat-input button {
+  margin-left: 12px;
+  background-color: var(--avatar-bg);
+  color: white;
+  padding: 10px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chat-input button:hover {
+  background-color: #029070;
+}
+
+.chat-input button:active {
+  transform: scale(0.96);
+}
+
+/* === Toast === */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #00a884;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: slideIn 0.4s ease, fadeOut 0.4s ease 3s forwards;
+  z-index: 9999;
+}
+
+/* === Media Elements === */
+.chat-image {
+  max-width: 200px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.chat-video {
+  max-width: 250px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.chat-file-link {
+  color: var(--accent, #007bff);
+  text-decoration: underline;
+  font-weight: bold;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.chat-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.chat-logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+.chat-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* === Lottie Background Layer === */
+.lottie-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none; /* Allows clicks to pass through */
+  overflow: hidden;
+}
+
+.footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #040303cc;
+  z-index: 2;
+  font-weight: 500;
+  backdrop-filter: blur(3px);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
