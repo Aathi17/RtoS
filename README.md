@@ -22,13 +22,13 @@
 
 ## 🖥️ Screenshots
 
-| Join Room UI | Chat UI (Light Mode) |
-|--------------|---------------------|
-|(<img width="1470" height="798" alt="Screenshot 2025-07-25 at 11 47 29 AM" src="https://github.com/user-attachments/assets/cc65a630-1530-4d27-9a37-c32a90545465" />
-)(<img width="1469" height="794" alt="Screenshot 2025-07-25 at 11 49 53 AM" src="https://github.com/user-attachments/assets/62179820-fbf1-49fa-a823-63279c73bcc1" />
-) |
+Join Room UI
+(<img width="750" height="750" alt="Screenshot 2025-07-25 at 11 47 29 AM" src="https://github.com/user-attachments/assets/cc65a630-1530-4d27-9a37-c32a90545465" />
+)
+Chat UI (Light Mode)
+(<img width="750" height="750" alt="Screenshot 2025-07-25 at 11 49 53 AM" src="https://github.com/user-attachments/assets/62179820-fbf1-49fa-a823-63279c73bcc1" />
+)
 
----
 
 ## 🧰 Tech Stack
 
